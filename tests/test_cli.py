@@ -15,6 +15,16 @@ from novus_wechat.paths import ROOT
 from novus_wechat.service import Service
 
 
+def test_cli_emits_utf8_errors_with_ascii_stdio(tmp_path):
+    env = {**os.environ, "PYTHONIOENCODING": "ascii", "PYTHONUTF8": "0",
+           "NOVUS_WECHAT_DATA": str(tmp_path)}
+    result = subprocess.run([sys.executable, "-X", "utf8=0", str(ROOT / "boot.py"), "init-key"],
+                            env=env, capture_output=True, timeout=30)
+    assert result.returncode == 1
+    assert "微信" in json.loads(result.stderr.decode("utf-8"))["error"]
+    assert not result.stdout
+
+
 @pytest.fixture
 def terminal(tmp_path, wechat_fixture):
     root = tmp_path / "个人数据 with spaces"
@@ -38,7 +48,7 @@ def terminal(tmp_path, wechat_fixture):
 
         def run(*args, success=True):
             result = subprocess.run([sys.executable, str(ROOT / "boot.py"), *args, "--port", str(port)],
-                                    env=env, capture_output=True, text=True, timeout=30)
+                                    env=env, capture_output=True, text=True, encoding="utf-8", timeout=30)
             if success:
                 assert result.returncode == 0, result.stderr
                 return json.loads(result.stdout)

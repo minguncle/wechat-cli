@@ -78,6 +78,8 @@ def main():
         for path in sorted(bundle.rglob("*")):
             if not path.is_file():
                 continue
+            if path.relative_to(bundle).as_posix() not in files and path.name != "SHA256SUMS.json":
+                continue
             name = path.relative_to(output).as_posix()
             executable = path.suffix in {".command", ".sh"} or "/bin/" in name or path.suffix == ".exe"
             data = zipfile.ZipInfo(name)
@@ -87,6 +89,11 @@ def main():
             z.writestr(data, path.read_bytes())
     tar_path = ROOT / "dist" / f"novus-wechat-{args.version}.tar.gz"
     def mode(info):
+        relative = info.name.removeprefix("wechat-cli/")
+        if "__pycache__" in info.name.split("/") or info.name.endswith(".pyc"):
+            return None
+        if info.isfile() and relative not in files and relative != "SHA256SUMS.json":
+            return None
         if info.name.endswith((".command", ".sh")) or "/bin/" in info.name:
             info.mode |= 0o111
         return info

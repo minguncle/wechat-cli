@@ -87,6 +87,9 @@ def autostart(mode, port):
 
 
 def main(argv=None):
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8")
     from .cli_commands import Client, HTTP_COMMANDS, execute, parser
     args = parser().parse_args(argv)
     args.command = args.command or "start"

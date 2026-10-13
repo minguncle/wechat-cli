@@ -9,7 +9,7 @@ import pytest
 @pytest.mark.parametrize('samples,expected_calls', [([[7],[7]],1), ([[7,8]]*6,0), ([[]]*6,0), ([[7],[8]]*3,0)])
 def test_preflight_candidate_gate(tmp_path, samples, expected_calls):
     path = Path(__file__).parents[1] / 'novus_wechat/native_preflight.py'
-    tree = ast.parse(path.read_text())
+    tree = ast.parse(path.read_text(encoding="utf-8"))
     function = next(n for n in tree.body if isinstance(n, ast.FunctionDef) and n.name == 'preflight')
     module = ast.Module(body=[function],type_ignores=[])
     observations = iter(samples)
