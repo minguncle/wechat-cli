@@ -1,0 +1,27 @@
+diff --git a/scripts/legacy/transcribe.swift b/scripts/legacy/transcribe.swift
+old mode 100755
+new mode 100644
+diff --git a/scripts/legacy/transcribe_voice.sh b/scripts/legacy/transcribe_voice.sh
+old mode 100755
+new mode 100644
+diff --git a/scripts/macos/extract_key.sh b/scripts/macos/extract_key.sh
+old mode 100755
+new mode 100644
+diff --git a/scripts/windows/extract_raw_key.py b/scripts/windows/extract_raw_key.py
+index d0a7a9a..7df31cf 100644
+--- a/scripts/windows/extract_raw_key.py
++++ b/scripts/windows/extract_raw_key.py
+@@ -19,10 +19,11 @@ from Crypto.Cipher import AES
+ secs = int(sys.argv[1]) if len(sys.argv) > 1 else 90
+ sys.stdout.reconfigure(line_buffering=True)  # 远程/CI 实时见进度(建议5: 避免块缓冲憋到退出)
+ SKILL_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+-KEY_FILE = os.path.join(SKILL_DIR, "key_windows.txt")
++KEY_FILE = os.environ.get("NOVUS_WECHAT_RAW_KEY_FILE", os.path.join(SKILL_DIR, "key_windows.txt"))
+ 
+ # --- verification target: any message db's page1 (raw key is account-wide; salt is per-db) ---
+-dbs = glob.glob(r"C:\Users\*\Documents\xwechat_files\*\db_storage\message\message_0.db")
++configured_db = os.environ.get("NOVUS_WECHAT_DB_DIR")
++dbs = sorted(glob.glob(os.path.join(configured_db, "message", "message_[0-9]*.db"))) if configured_db else glob.glob(r"C:\Users\*\Documents\xwechat_files\*\db_storage\message\message_0.db")
+ if not dbs:
+     print("ERR: message_0.db not found"); sys.exit(1)
+ page1 = open(dbs[0], "rb").read(4096)

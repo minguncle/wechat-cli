@@ -1,0 +1,30 @@
+{
+  "wechat-decrypt": {
+    "url": "https://github.com/pronii/wechat-decrypt.git",
+    "branch": "main",
+    "commit": "e0270e9a9642559f54ccc4c3338d4b4453c8e4ac",
+    "prefix": "vendor/wechat-decrypt",
+    "license": "MIT"
+  },
+  "key-tools": {
+    "url": "https://github.com/tzwkb/wechat-decrypt.git",
+    "branch": "main",
+    "commit": "2199f64c29c4fd43be7e1fecac8197057eb775d7",
+    "prefix": "vendor/key-tools",
+    "license": "MIT"
+  },
+  "pywechat": {
+    "url": "https://github.com/Hello-Mr-Crab/pywechat.git",
+    "branch": "main",
+    "commit": "ebe8d4be9347816d221c38843e5b9e5e480bd8fb",
+    "prefix": "vendor/pywechat",
+    "license": "LGPL-2.1-style; see original LICENSE"
+  },
+  "wechatauto": {
+    "url": "https://github.com/fanyuantaier/wechatauto-replica.git",
+    "branch": "main",
+    "commit": "61a88bb38a63b8b9a7e3557398195fd4991e9407",
+    "prefix": "vendor/wechatauto",
+    "license": "Apache-2.0"
+  }
+}

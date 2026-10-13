@@ -1,0 +1,22 @@
+name: Build offline Skill
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv
+      - run: python scripts/build_bundle.py --prepare --version 0.2.0a6
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wechat-cli-offline
+          path: |
+            dist/*.zip
+            dist/*.tar.gz
+            dist/*.checksums.json

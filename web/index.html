@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>微信cli</title><link rel="stylesheet" href="/assets/style.css"></head>
+<body>
+<div class="app">
+  <aside class="rail"><a class="brand" href="/" title="Novus">N<span>·</span></a><button class="rail-button active" id="home" title="会话">☷</button><button class="rail-button" id="settings" title="设置">⚙</button><span class="rail-bottom">个人<br>工作台</span></aside>
+  <aside class="sidebar">
+    <header class="side-head"><div><span class="eyebrow">NOVUS / PERSONAL ARCHIVE</span><h1>微信cli</h1></div><button class="icon" id="new-chat" title="新增本地会话">＋</button></header>
+    <div class="side-search"><span>⌕</span><input id="chat-search" placeholder="查找会话或联系人" aria-label="查找会话"></div>
+    <nav class="tabs"><button data-kind="" class="active">全部</button><button data-kind="group">群聊</button><button data-kind="private">私聊</button><button data-kind="trash">已删除</button></nav>
+    <div class="list-caption"><span id="chat-count">会话</span><button class="text-button" id="import">导入记录</button></div>
+    <div id="chats" class="chat-list"></div><button id="more-chats" class="more" hidden>更多会话</button>
+    <footer class="side-footer"><span class="status-dot"></span><span id="sync-status">正在检查服务</span><button class="icon" id="sync" title="同步">↻</button></footer>
+  </aside>
+  <main>
+    <header class="conversation-head"><div><span class="eyebrow" id="conversation-label">YOUR CONVERSATIONS, ORGANIZED.</span><h2 id="chat-title">全部消息</h2><p id="chat-subtitle">查询、整理和管理自己的沟通记录</p></div><div class="head-actions"><button id="chat-edit" hidden>会话设置</button><button id="export" hidden>导出 ↗</button></div></header>
+    <section class="filters"><label class="message-search"><span>⌕</span><input id="message-search" placeholder="检索消息内容或备注" aria-label="检索消息"></label><input type="date" id="date-start" aria-label="起始日期"><span class="date-to">至</span><input type="date" id="date-end" aria-label="结束日期"><select id="message-kind" aria-label="消息类型"><option value="">全部类型</option><option value="text">文字</option><option value="image">图片</option><option value="voice">语音</option><option value="link_or_file">文件与链接</option></select><button class="primary" id="search">查询</button></section>
+    <section id="messages" class="messages"><div class="empty"><div class="empty-mark">N<span>·</span></div><h3>让沟通记录随时可查</h3><p>选择微信数据目录，或导入已有的聊天记录。<br>你的会话、图片和备注将在这里呈现。</p><button class="primary" id="setup-empty">配置数据来源</button></div></section>
+    <div class="pagination"><span id="message-count">尚未选择数据</span><button id="more-messages" hidden>读取更早消息 ↓</button></div>
+    <section class="composer" id="composer" hidden><textarea id="compose-text" rows="2" placeholder="新增一条本地记录，或发送到当前微信会话"></textarea><div class="compose-actions"><div><button id="attach">添加图片 / 文件</button><span id="file-count"></span><label><input type="checkbox" id="as-file">图片作为文件发送</label></div><div><button id="add-record">保存为本地记录</button><button class="primary" id="send">发送到微信 ↗</button></div></div><p class="fine">每次发送纯文字、一张静态图片或一个文件，文字与附件分别发送。发送通过已登录的微信客户端执行。</p></section>
+  </main>
+</div>
+<dialog id="modal"><div class="modal-head"><h2 id="modal-title"></h2><button id="modal-close" class="icon">×</button></div><div id="modal-content"></div></dialog>
+<div id="toast" role="status" hidden></div>
+<input type="file" id="import-input" accept=".json" hidden><input type="file" id="attachment-input" hidden>
+<script src="/assets/app.js"></script>
+</body></html>

@@ -1,0 +1,54 @@
+diff --git a/decode_image.py b/decode_image.py
+index 32ca69e..6c9b2ed 100644
+--- a/decode_image.py
++++ b/decode_image.py
+@@ -17,6 +17,8 @@ V2 文件结构:
+ """
+ 
+ import os
++import errno
++import shutil
+ import sys
+ import glob
+ import hashlib
+@@ -583,9 +585,13 @@ class ImageResolver:
+ 
+         # 重命名为正确扩展名
+         final_path = f"{out_path_base}.{fmt}"
+-        if os.path.exists(final_path):
+-            os.unlink(final_path)
+-        os.rename(result_path, final_path)
++        try:
++            os.replace(result_path, final_path)
++        except OSError as exc:
++            if exc.errno != errno.EXDEV:
++                raise
++            shutil.copyfile(result_path, final_path)
++            os.unlink(result_path)
+ 
+         return {
+             'success': True,
+diff --git a/mcp_server.py b/mcp_server.py
+index ebc7124..924f392 100644
+--- a/mcp_server.py
++++ b/mcp_server.py
+@@ -135,8 +135,8 @@ def decrypt_wal(wal_path, out_path, enc_key):
+ class DBCache:
+     """缓存解密后的 DB，通过 mtime 检测变化。使用固定文件名，重启后可复用。"""
+ 
+-    CACHE_DIR = os.path.join(tempfile.gettempdir(), "wechat_mcp_cache")
+-    MTIME_FILE = os.path.join(tempfile.gettempdir(), "wechat_mcp_cache", "_mtimes.json")
++    CACHE_DIR = os.environ.get("NOVUS_WECHAT_CACHE_DIR", os.path.join(tempfile.gettempdir(), "wechat_mcp_cache"))
++    MTIME_FILE = os.path.join(CACHE_DIR, "_mtimes.json")
+ 
+     def __init__(self):
+         self._cache = {}  # rel_key -> (db_mtime, wal_mtime, tmp_path)
+@@ -174,7 +174,7 @@ class DBCache:
+                 self._cache[rel_key] = (db_mtime, wal_mtime, tmp_path)
+                 reused += 1
+         if reused:
+-            print(f"[DBCache] reused {reused} cached decrypted DBs from previous run", flush=True)
++            print(f"[DBCache] reused {reused} cached decrypted DBs from previous run", file=sys.stderr, flush=True)
+ 
+     def _save_persistent_cache(self):
+         """持久化缓存映射到磁盘"""

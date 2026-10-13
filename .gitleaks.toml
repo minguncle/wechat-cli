@@ -1,0 +1,9 @@
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Generated environments and local build artifacts are not published source"
+paths = ['''(^|/)(\.venv|\.build|dist|\.git)/''']
+regexTarget = "match"
+# Upstream synthetic image tests pass variable names, not credential literals.
+regexes = ['''^TEST_AES_KEY, xor_key=TEST_XOR_KEY\s*$''']

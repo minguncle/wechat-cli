@@ -1,0 +1,36 @@
+[project]
+name = "novus-wechat"
+version = "0.2.0a6"
+description = "Local WeChat Web, API and MCP packaged as one portable Skill"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "uvicorn>=0.34,<1",
+  "mcp>=1.12,<2",
+  "pycryptodome>=3.23,<4",
+  "zstandard>=0.23,<1",
+  "python-multipart>=0.0.20,<1",
+  "frida>=17,<18",
+  "Pillow>=11,<13",
+  "av==15.1.0",
+  "xlsxwriter==3.2.9",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.28,<1"]
+release = ["requests>=2.32,<3"]
+windows = ["uiautomation==2.0.29", "pywinauto>=0.6.9", "pywin32>=308", "psutil>=6", "pyperclip>=1.9", "pyautogui>=0.9.54", "pycaw>=20240210", "emoji>=2.14", "beautifulsoup4>=4.13", "markdownify>=1.2", "sounddevice>=0.5", "soundfile>=0.13"]
+
+[project.scripts]
+novus-wechat = "novus_wechat.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["novus_wechat*"]

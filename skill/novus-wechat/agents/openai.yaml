@@ -1,0 +1,4 @@
+interface:
+  display_name: "微信cli"
+  short_description: "打开微信消息网页，查询群聊并导出包含图片、重点摘要和统计的完整 Excel"
+  default_prompt: "使用 $wechat-cli 打开微信消息网页；需要导出时生成包含图片与统计的完整 Excel。"

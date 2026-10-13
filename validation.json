@@ -1,0 +1,7 @@
+{
+  "public_source_tests": "PASS: Windows 166 passed, 1 POSIX-only skip, 2 existing warnings; synthetic data",
+  "windows_native_send": "historical 4.1.13.65; not retested",
+  "macos_native_send": "NOT_IMPLEMENTED",
+  "macos_account": "reported by package author; not independently retested",
+  "public_secret_scan": "PASS: gitleaks 8.30.1 and internal identifiers"
+}
