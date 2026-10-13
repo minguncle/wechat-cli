@@ -9,6 +9,9 @@
 - PASS：2026-10-13 Windows 全量源码测试 167 通过、1 跳过（POSIX 文件权限）、2 项已有警告；使用合成数据，没有真实发送。
 - PASS：新增 Excel 检查覆盖 511 条消息、图片嵌入、公式文本与重复消息拒绝；本地 Git 仓库验证上游三方更新保留定制补丁。
 - PASS：Gitleaks 8.30.1 扫描与内部标识专项检查。五个上游合成测试变量引用经核实后以精确表达式排除，没有排除整个第三方源码目录。
-- 离线包检查和 GitHub CI 状态以实际发布记录为准。
+- PASS：[源码 CI](https://github.com/minguncle/wechat-cli/actions/runs/38371208459) 的 Windows、macOS、Linux 三项任务全部通过，对应代码提交 `75deff5`。
+- PASS：本地 0.2.0a7 ZIP 与 tar.gz 各 11,306 个文件的 SHA256 与清单完全一致，没有额外文件；Windows 包内运行时验证 Web、CLI、stdio MCP、HTTP MCP 通过。
+- PASS：Gitleaks 对公开仓库截至 `75deff5` 的 5 个提交扫描未发现泄漏。
+- NOT_PUBLISHED：完整离线二进制包；FFmpeg 及外部编解码库的对应源码和许可材料尚需完善。本版公开发布源码与 Skill 定义，具体见 THIRD_PARTY_NOTICES.md。
 
 公开仓库使用独立历史，不导入内部历史、个人聊天截图和内部交接材料。保留上游来源与本地补丁。
