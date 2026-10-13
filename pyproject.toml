@@ -1,6 +1,6 @@
 [project]
 name = "novus-wechat"
-version = "0.2.0a6"
+version = "0.2.0a7"
 description = "Local WeChat Web, API and MCP packaged as one portable Skill"
 requires-python = ">=3.12"
 dependencies = [

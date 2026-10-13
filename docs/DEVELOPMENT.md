@@ -7,7 +7,7 @@
 安装 uv 后执行：
 
 ```sh
-python scripts/build_bundle.py --prepare --version 0.2.0a6
+python scripts/build_bundle.py --prepare --version 0.2.0a7
 ```
 
 同一个包包含 Windows x64 与 Mac ARM64 运行组件。产物位于 dist，包含源码、许可证、Web 和 Skill。构建版本应与 novus_wechat/__init__.py 一致。

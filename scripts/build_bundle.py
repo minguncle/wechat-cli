@@ -25,7 +25,7 @@ def copy(source, destination):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", default="0.2.0a6")
+    parser.add_argument("--version", default="0.2.0a7")
     parser.add_argument("--prepare", action="store_true", help="download pinned runtimes/dependencies before building")
     args = parser.parse_args()
     if args.prepare:
