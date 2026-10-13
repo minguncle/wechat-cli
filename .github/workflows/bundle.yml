@@ -1,4 +1,4 @@
-name: Build offline Skill
+name: Verify offline Skill build
 on:
   workflow_dispatch:
 permissions:
@@ -13,10 +13,5 @@ jobs:
           python-version: '3.12'
       - run: python -m pip install uv
       - run: python scripts/build_bundle.py --prepare --version 0.2.0a7
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wechat-cli-offline
-          path: |
-            dist/*.zip
-            dist/*.tar.gz
-            dist/*.checksums.json
+      # Complete native-library source/license materials before distributing runtimes.
+      - run: echo "Build verified locally on this runner; runtime archives are not uploaded."

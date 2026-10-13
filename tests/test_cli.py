@@ -71,7 +71,7 @@ def test_real_cli_sync_query_pagination_and_export(terminal, tmp_path):
     assert run("chats", "--keyword", "Alice")["total"] == 1
     exported = tmp_path / "导出记录.json"
     assert run("export", chat["id"], "--output", str(exported))["bytes"] > 0
-    content = json.loads(exported.read_text())
+    content = json.loads(exported.read_text(encoding="utf-8"))
     assert len(content["messages"]) == 3
     assert {m["id"] for m in content["messages"]} == set(ids)
     result = run("export", chat["id"], "--output", str(exported), success=False)
@@ -88,7 +88,7 @@ def test_cli_export_covers_more_than_one_server_page(terminal, tmp_path):
                           "timestamp": 1000 + i, "content": "记录", "source": "local"} for i in range(503)])
     path = tmp_path / "all.json"
     run("export", chat["id"], "--output", str(path))
-    messages = json.loads(path.read_text())["messages"]
+    messages = json.loads(path.read_text(encoding="utf-8"))["messages"]
     assert len(messages) == len({m["id"] for m in messages}) == 503
     assert messages[0]["timestamp"] == 1000 and messages[-1]["timestamp"] == 1502
     if os.name != "nt":

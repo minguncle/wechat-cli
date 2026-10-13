@@ -66,7 +66,9 @@ Mac Apple Silicon：
 
 ## 离线 Skill
 
-[Releases](https://github.com/minguncle/wechat-cli/releases) 中构建完成的 ZIP / tar.gz 包含两个平台的运行组件。将 `wechat-cli` 文件夹放入宿主的 Skill 目录，Windows 使用 `launch.cmd`，Mac 使用 `launch.command`。
+当前公开发布源码及 Skill 定义，尚未发布包含运行时的完整离线包。离线包已在本地构建；其中 PyAV 随附的 FFmpeg 原生库仍需完善对应源码与许可证材料，详见[第三方许可证](THIRD_PARTY_NOTICES.md)。
+
+自行构建后的包包含两个平台的运行组件。将 `wechat-cli` 文件夹放入宿主的 Skill 目录，Windows 使用 `launch.cmd`，Mac 使用 `launch.command`。
 
 GitHub 自动生成的源码归档不包含 Python 运行时，不能当作完整离线包使用。[自行构建](docs/DEVELOPMENT.md)。
 
